@@ -8,6 +8,7 @@ class X:
     def evaluate(self, x_value):
         # X evaluates to the provided x_value (wrapped as Int)
         return Int(x_value)
+        
 
     def simplify(self):
         # X cannot be simplified further
