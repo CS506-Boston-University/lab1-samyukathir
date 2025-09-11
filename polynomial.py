@@ -8,7 +8,6 @@ class X:
     def evaluate(self, x_value):
         # X evaluates to the provided x_value (wrapped as Int)
         return Int(x_value)
-        
 
     def simplify(self):
         # X cannot be simplified further
@@ -70,6 +69,7 @@ class Mul:
         # Parenthesize additive/subtractive operands to preserve precedence
         def fmt(p):
             return "( " + repr(p) + " )" if isinstance(p, (Add, Sub)) else repr(p)
+
         return f"{fmt(self.p1)} * {fmt(self.p2)}"
 
     def evaluate(self, x_value):
@@ -106,7 +106,9 @@ class Sub:
     def __repr__(self):
         # Parenthesize additive on the left; add/sub on the right (to avoid "a - (b - c)" ambiguity)
         left = f"( {repr(self.p1)} )" if isinstance(self.p1, Add) else repr(self.p1)
-        right = f"( {repr(self.p2)} )" if isinstance(self.p2, (Add, Sub)) else repr(self.p2)
+        right = (
+            f"( {repr(self.p2)} )" if isinstance(self.p2, (Add, Sub)) else repr(self.p2)
+        )
         return f"{left} - {right}"
 
     def evaluate(self, x_value):
@@ -139,6 +141,7 @@ class Div:
         # e.g., ( 10 - 2 ) / 4  not  10 - 2 / 4
         def fmt(p):
             return f"( {repr(p)} )" if isinstance(p, (Add, Sub)) else repr(p)
+
         return f"{fmt(self.p1)} / {fmt(self.p2)}"
 
     def evaluate(self, x_value):
